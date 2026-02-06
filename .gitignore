@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.pyc
+
+# Mac
+.DS_Store
+
+# ML artifacts
+models/
+*.pkl
+*.tar
+
+# Docker
+*.tar
