@@ -8,20 +8,32 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 class ModelService:
-    def __init__(self ,model_path=MODEL_PATH):
-        logger.info(f"Loading model from {MODEL_PATH}")
-        self.model = joblib.load(MODEL_PATH)
+    def __init__(self, model_path=MODEL_PATH):
+        logger.info(f"Loading model from {model_path}")
+        self.model = joblib.load(model_path)
+
         logger.info(f"Model expects {self.model.n_features_in_} features")
 
         # --- MONITORING STATE ---
-        self.model_path = MODEL_PATH
+        self.model_path = model_path
         self.request_count = 0
         self.prediction_counter = Counter()
 
         logger.info("Model loaded successfully")
 
-    def predict(self, features):
-        # --- DEBUG LOGGING ---
+    def predict(self, data):
+        """
+        data = ChurnInput (validated by schema)
+        """
+
+        # --- TRANSLATION (THIS WAS MISSING) ---
+        features = [[
+            data.tenure,
+            data.monthly_charges,
+            data.total_charges,
+            data.support_calls
+        ]]
+
         logger.info(f"Input features received: {features}")
 
         # --- PREDICTION ---
