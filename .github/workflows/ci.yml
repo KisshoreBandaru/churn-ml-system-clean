@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run basic model test
+        run: |
+          python -c "
+          from app.model import ModelService
+          from app.schema import ChurnInput
+
+          model = ModelService('models/churn_v2.pkl')
+          data = ChurnInput(
+              tenure=10,
+              monthly_charges=50,
+              total_charges=500,
+              support_calls=1
+          )
+          print(model.predict(data))
+          "
