@@ -24,17 +24,17 @@ jobs:
 
       - name: Run basic model test
         run: |
-          python -c "
+          python << 'EOF'
           from app.model import ModelService
           from app.schema import ChurnInput
 
-          model = ModelService('models/churn_v2.pkl')
+          model = ModelService("models/churn_v2.pkl")
           data = ChurnInput(
-              tenure=10,
-              monthly_charges=50,
-              total_charges=500,
-              support_calls=1,
-              contract_type="monthly"
+             tenure=10,
+             monthly_charges=50,
+             total_charges=500,
+             support_calls=1,
+             contract_type="monthly"
           )
           print(model.predict(data))
-          "
+          EOF
