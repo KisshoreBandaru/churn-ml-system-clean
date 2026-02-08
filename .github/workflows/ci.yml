@@ -34,6 +34,7 @@ jobs:
               monthly_charges=50,
               total_charges=500,
               support_calls=1
+              contract_type="monthly"
           )
           print(model.predict(data))
           "
