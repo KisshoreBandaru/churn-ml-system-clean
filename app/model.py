@@ -8,7 +8,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 class ModelService:
-    def __init__(self):
+    def __init__(self ,model_path=MODEL_PATH):
         logger.info(f"Loading model from {MODEL_PATH}")
         self.model = joblib.load(MODEL_PATH)
         logger.info(f"Model expects {self.model.n_features_in_} features")
